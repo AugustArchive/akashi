@@ -1,0 +1,16 @@
+{
+    "name": "@yamashiro/akashi",
+    "description": "Command framewor for the Yamashiro discord bot",
+    "version": "0.0.1",
+    "main": "lib/index.js",
+    "types": "index.d.ts",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/YamashiroBot/akashi"
+    },
+    "dependencies": {
+        "@augu/immutable": "0.0.1",
+        "eris": "0.10.0",
+        "mongoose": "5.6.0"
+    }
+}
