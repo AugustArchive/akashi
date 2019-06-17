@@ -11,5 +11,11 @@ module.exports = class ReadyEvent extends Event {
             name: `${this.client.commandPrefix}help | ${this.client.guilds.size} Guilds`,
             type: 0
         });
+        this.client.webhook.send(
+            this
+                .client
+                .getEmbed()
+                .setTitle('Connected to Discord!')
+        );
     }
 }
