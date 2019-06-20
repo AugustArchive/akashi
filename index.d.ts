@@ -25,6 +25,7 @@ declare module '@yamashiro/akashi' {
         public messagesSeen: number;
         public webhook: WebhookClient;
         public commandPrefix: string;
+        public util: Util;
         public build(): Promise<void>;
         public getEmbed(): EmbedBuilder;
         public addCommandUsage(cmd: Command, user: Eris.User): void;
@@ -43,6 +44,7 @@ declare module '@yamashiro/akashi' {
         public subcommands: Subcommand[];
         public run(ctx: CommandContext): Promise<void>;
         public format(): string;
+        public help(): Eris.EmbedOptions;
     }
     export class CommandContext {
         constructor(client: Client, m: Eris.Message, args: string[]);
@@ -135,6 +137,18 @@ declare module '@yamashiro/akashi' {
         public getUser(query: string): Promise<Eris.User>;
         public getGuild(query: string): Promise<Eris.Guild>;
         public getChannel(query: string, guild: Eris.Guild): Promise<AnyRESTChannel>;
+    }
+    export class Util {
+        public static rgbToInt(a: number, b: number, c: number): number;
+        public static formatNumber(num: number): string;
+        public static uppercase(str: string, spl: string = ' '): string;
+        public static elipisis(str: string, spl: number = 2000): string;
+        public static resolveString(str: StringResolvable): string;
+        public static resolveColor(color: ColorResolvable): number;
+        public static clone<T>(obj: any): T;
+        public static randomNumber(o: number, s: number): number;
+        public static parsePlatform(platform: NodeJS.Platform): 'Linux' | 'MacOS' | 'Windows' | 'Android' | 'Unknown';
+        public static formatBytes(bits: number): string;
     }
     export class WebhookClient {
         constructor(url: string);
@@ -229,7 +243,20 @@ declare module '@yamashiro/akashi' {
         remove(id: string): void;
         update(id: string, doc: object, cb: (error: any) => void): mongoose.Query<any>;
     }
-    export interface GuildModel extends mongoose.Document {}
+    export interface GuildModel extends mongoose.Document {
+        guildID: string;
+        prefix: string;
+        autoroles: string[];
+        selfAssign: string[];
+        logging: {
+            enabled: boolean;
+            channelID: string | null;
+        }
+        modlog: {
+            enabled: boolean;
+            channelID: string | null;
+        }
+    }
     export type IAwaitFilter = (m: Eris.Message) => boolean;
     export interface Collector {
         filter: IAwaitFilter;
