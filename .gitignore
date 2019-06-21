@@ -1,4 +1,6 @@
 node_modules/
+build/
+old/
 test/config.json
 *.lock
 *.log
